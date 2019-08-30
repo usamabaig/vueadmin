@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "date-fns": "^2.0.1",
     "vue": "^2.6.10",
-    "vuetify": "^2.0.0"
+    "vue-router": "^3.1.2",
+    "vuetify": "^2.0.0",
+    "vuetify-daterange-picker": "3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
@@ -19,8 +22,11 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "font-awesome": "4.7.0",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
     "vue-cli-plugin-vuetify": "^0.6.3",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"

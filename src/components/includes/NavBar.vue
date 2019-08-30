@@ -15,12 +15,12 @@
       </v-toolbar-items> -->
 
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-btn href='/client/list' text small>My Client List</v-btn>
-        <v-btn href='/agency' text small>My Agency</v-btn>
-        <v-btn href='/users' text small>My Users</v-btn>
-        <v-btn href='/performance/estimator' text small>Estimator</v-btn>
+        <v-btn href='/#/client/list' text small>My Client List</v-btn>
+        <v-btn href='/#/my/agency' text small>My Agency</v-btn>
+        <v-btn href='/#/user/list' text small>My Users</v-btn>
+        <v-btn href='/#/performance/estimator' text small>Estimator</v-btn>
 
-        <v-btn icon>
+        <!-- <v-btn icon>
           <v-icon>mdi-account</v-icon>
           <v-icon>mdi-export-variant</v-icon>
         </v-btn>
@@ -29,7 +29,7 @@
         </v-btn>
         <v-btn icon>
           <v-icon>mdi-plus-circle</v-icon>
-        </v-btn>
+        </v-btn> -->
 
               <v-menu
       transition="slide-y-transition"
@@ -42,18 +42,13 @@
           dark
           v-on="on"
         >
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Noman Kabeer
         <v-icon>mdi-account</v-icon>
-          <v-icon>mdi-plus-circle</v-icon>
         </v-btn>
-
-        <v-btn 
-        dark
-          v-on="on">
-          <v-icon>mdi-plus-circle</v-icon>
-        </v-btn>
-
-
       </template>
+
+
       <v-list>
         <v-list-item
           v-for="(item, i) in items"

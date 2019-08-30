@@ -1,25 +1,29 @@
 <template>
-  <v-app>
-    <v-content>
-       <nav-bar></nav-bar>
-       <br>
-      <PerformanceEstimator/>
-    </v-content>
-  </v-app>
+  <master>
+    <!-- <PerformanceEstimator/> -->
+    <!-- <client-list></client-list> -->
+<router-view></router-view>
+  </master> 
 </template>
 
 <script>
-import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
-import NavBar from './components/includes/NavBar';
+
+
+// import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
+// import ClientList from './components/dashboard/ClientList';
+import Master from './components/layouts/Master';
+
+
 
 export default {
   name: 'App',
   components: {
-    PerformanceEstimator,
-    NavBar
+    // PerformanceEstimator,
+    // ClientList,
+    Master
   },
   data: () => ({
-    //
+    
   }),
 };
 </script>
