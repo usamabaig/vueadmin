@@ -13,6 +13,8 @@
               <div class="pa-2">
                   <v-btn color="primary"  @click.stop="addNewDashboard = true">Add New Dashboard</v-btn>
               </div>
+
+
           </div>
       </div>
       <v-card class="container">

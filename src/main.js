@@ -8,18 +8,25 @@ import './sass/main.scss'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
+
+import FBSignInButton from 'vue-facebook-signin-button'
+Vue.use(FBSignInButton)
+
+
 //Dont remove this code in comment
 // https://vuejsexamples.com/date-range-picker-for-vuetify-js/
 /*import VuetifyDaterangePicker from "vuetify-daterange-picker";
 import "vuetify-daterange-picker/dist/vuetify-daterange-picker.css";
 Vue.use(VuetifyDaterangePicker);*/
 
+import LoginFB from './components/dashboard/LoginFB';
 import ClientList from './components/dashboard/ClientList';
 import UserList from './components/dashboard/UserList';
 import MyAgency from './components/dashboard/MyAgency';
 import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
 const routes = [
   { path: '/client/list',  component: ClientList } ,
+  { path: '/LoginFB',  component: LoginFB } ,
   { path: '/performance/estimator', component: PerformanceEstimator } ,
   { path: '/user/list', component: UserList } ,
   { path: '/my/agency', component: MyAgency }
@@ -34,5 +41,6 @@ const router = new VueRouter({
 new Vue({
   vuetify,
   router,
+    FBSignInButton,
   render: h => h(App)
 }).$mount('#app')
