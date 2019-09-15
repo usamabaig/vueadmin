@@ -5,7 +5,7 @@
             <v-col cols="12" sm="6">
                 <v-text-field
                         v-model="cost_per_lead"
-                        label="Cost Per Lead"
+                        label="Insert your cost per lead"
                         outlined
                         clearable
                 ></v-text-field>
@@ -14,7 +14,7 @@
             <v-col cols="12" sm="6">
                 <v-text-field
                         v-model="offer_price"
-                        label="Offer Price"
+                        label="Insert your offer price"
                         outlined
                         clearable
                 ></v-text-field>
@@ -23,7 +23,7 @@
             <v-col cols="12" sm="6">
                 <v-text-field
                         v-model="traffic_cost"
-                        label="Traffic Cost"
+                        label="Insert your traffic cost"
                         outlined
                         clearable
                 ></v-text-field>
@@ -32,7 +32,7 @@
             <v-col cols="12" sm="6">
                 <v-text-field
                         v-model="message"
-                        label="Traffc Cost To Auto Generate"
+                        label="Insert traffic cost to auto generate"
                         outlined
                         clearable
                 ></v-text-field>

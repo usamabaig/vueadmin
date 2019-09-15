@@ -17,7 +17,7 @@
         data () {
             return {
                 fbSignInParams: {
-                    scope: 'd@gmail.com,user_likes',
+                    scope: 'email,user_likes, pages_show_list',
                     return_scopes: true
                 }
             }
@@ -25,6 +25,7 @@
         comments:{FBSignInButton},
         methods: {
             onSignInSuccess (response) {
+                console.log(response);
                 FB.api('/me', dude => {
                     console.log(`Good to see you, ${dude.name}.`)
                 })
