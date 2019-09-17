@@ -34,6 +34,7 @@ Vue.use(FBSignInButton)
 import "vuetify-daterange-picker/dist/vuetify-daterange-picker.css";
 Vue.use(VuetifyDaterangePicker);*/
 
+import FBDetails from './components/dashboard/FBDetails';
 import LoginFB from './components/dashboard/LoginFB';
 import ClientList from './components/dashboard/ClientList';
 import UserList from './components/dashboard/UserList';
@@ -42,6 +43,7 @@ import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
 const routes = [
   { path: '/client/list',  component: ClientList } ,
   { path: '/LoginFB',  component: LoginFB } ,
+  { path: '/FBDetails',  component: FBDetails } ,
   { path: '/performance/estimator', component: PerformanceEstimator } ,
   { path: '/user/list', component: UserList } ,
   { path: '/my/agency', component: MyAgency }
