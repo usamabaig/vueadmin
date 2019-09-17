@@ -82,7 +82,7 @@
 
 <style>
 .myStyle{
-  background-color:#1d1d68  !important;
+  background-color:#2E4686  !important;
 }
 .myStyle div {
   color: white !important;

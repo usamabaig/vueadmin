@@ -1,6 +1,7 @@
 <template>
-    <v-card class="container">
-        <div class="title">Performance Estimator</div>
+    <div>
+      <div class="title">Performance Estimator</div>
+      <v-card max-width="900" class="container">
         <v-row>
             <v-col cols="12" sm="6">
                 <v-text-field
@@ -49,6 +50,7 @@
                 class="my_style"
         ></v-data-table>
     </v-card>
+    </div>
 </template>
 
 <script>
@@ -144,11 +146,15 @@
 
 <style>
 .v-data-table-header{
-  background: #8e8e8e;;
+  background: #6A6F8B;
 }
 .v-data-table-header th
 {
 color: white !important;
 }
-
+.title {
+color: #2E4686;
+margin-left: 225px;
+margin-bottom: 15px;
+}
 </style>

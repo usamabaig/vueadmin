@@ -28,7 +28,16 @@
                 console.log(response);
                 FB.api('/me', dude => {
                     console.log(`Good to see you, ${dude.name}.`)
-                })
+                });
+                // have to test this first
+                // FB.api(
+                //     "/{user-id}/accounts",
+                //     function (response) {
+                //         if (response && !response.error) {
+                //             /* handle the result */
+                //         }
+                //     }
+                // );
             },
             onSignInError (error) {
                 console.log('OH NOES', error)
