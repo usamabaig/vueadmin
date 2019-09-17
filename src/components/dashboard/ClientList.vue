@@ -1,23 +1,17 @@
   <template>
   <div>
-      <div class="container">
-          <div
-                  :class="`d-flex justify-space-between mb-6`"
+      <div :class="`d-flex justify-space-between mb-6`"
                   color="dgrey lighten-2"
                   flat
-                  tile
-          >
+                  tile>
               <div class="pa-2">
                   <div class="title my-2">My Client List</div>
               </div>
-              <div class="pa-2">
-                  <v-btn color="primary"  @click.stop="addNewDashboard = true">Add New Dashboard</v-btn>
-              </div>
+              <div class="pa-2" style="margin-right: 215px;"><v-btn color="primary"  @click.stop="addNewDashboard = true">Add New Dashboard</v-btn></div>
 
 
           </div>
-      </div>
-      <v-card class="container">
+      <v-card max-width="900" class="container">
           <div
                   class="d-flex justify-space-between"
                   color="dgrey lighten-1"
@@ -54,7 +48,6 @@
                       <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   </v-btn>
                   <v-text-field
-                          v-model="cost_per_lead"
                           label="Cost Per Lead"
                           outlined
                           clearablea
@@ -76,7 +69,6 @@
                       <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   </v-btn>
                   <v-text-field
-                          v-model="offer_price"
                           label="Offer Price"
                           outlined
                           clearabled
@@ -96,7 +88,6 @@
                       <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   </v-btn>
                   <v-text-field
-                          v-model="traffic_cost"
                           label="Traffic Cost"
                           outlined
                           clearable
@@ -116,7 +107,6 @@
                       <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   </v-btn>
                   <v-text-field
-                          v-model="message"
                           label="Traffc Cost To Auto Generate"
                           outlined
                           clearable
@@ -139,14 +129,12 @@
                   <div class=" textCenter modalHeading headline">Edit Client</div>
                   <div class="container">
                       <v-text-field
-                              v-model="message"
                               label="Traffc Cost To Auto Generate"
                               outlined
                               clearable
                       ></v-text-field>
 
                       <v-text-field
-                              v-model="message"
                               label="Traffc Cost To Auto Generate"
                               outlined
                               clearable
@@ -174,21 +162,19 @@
       <v-row justify="center">
           <v-dialog
                   v-model="addNewDashboard"
-                  max-width="800"
+                  max-width="600"
           >
               <v-card>
                   <div class=" textCenter modalHeading headline">Add New Dashboard</div>
                   <div class="container">
                       <v-text-field
-                              v-model="message"
-                              label="Traffc Cost To Auto Generate"
+                              label="Select an ad Account"
                               outlined
                               clearable
                       ></v-text-field>
 
                       <v-text-field
-                              v-model="message"
-                              label="Traffc Cost To Auto Generate"
+                              label="Custom Client Name (Leave blank to use Default)"
                               outlined
                               clearable
                       ></v-text-field>
@@ -216,20 +202,55 @@
 </template>
 
 <script>
+import FBSignInButton from 'vue-facebook-signin-button'
+
   export default {
     name: 'ClientList',
     data () {
       return {
+        fbSignInParams: {
+            scope: 'email,user_likes, pages_show_list',
+            return_scopes: true
+        },
         dialog: false,
         addNewDashboard: false,
       }
     },
+    comments:{FBSignInButton},
+    mounted() {
+    setTimeout(function() {
+        alert('called');
+        window.FB.api(
+        "/2964155643655014/accounts",
+        function (response) {
+            if (response && !response.error) {
+                console.log(response);
+            }
+        }
+    );
+    }, 3000)
+    },
+    methods: {
+        onSignInSuccess (response) {
+                console.log(response);
+                var user_id = '';
+                FB.api('/me', dude => {
+                    console.log(dude);
+                    user_id = dude.id;
+                    console.log(`Good to see you, ${dude.name}.`)
+                })
+                console.log(user_id);
+            },
+        onSignInError (error) {
+            console.log('OH NOES', error)
+        }
+    }
   }
 </script>
 
 <style>
 .modalHeading {
-    background: blue;
+    background: #2E4686;
     color: white;
     padding: 15px 0px;
     font-weight: bold !important;

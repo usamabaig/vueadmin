@@ -21,3 +21,8 @@ export default {
   }),
 };
 </script>
+<style scoped>
+#app {
+  background-color: #EAEFF7 !important;
+}
+</style>
