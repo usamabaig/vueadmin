@@ -43,19 +43,22 @@
           v-on="on"
         >
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Noman Kabeer
+        User Name
         <v-icon>mdi-account</v-icon>
         </v-btn>
       </template>
 
 
-      <v-list>
+      <v-list dense>
         <v-list-item
           v-for="(item, i) in items"
-          :key="i"
-         
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          :key="i" :href="item.url">
+          <v-list-item-icon>
+            <v-icon v-text="item.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -70,10 +73,7 @@
   export default {
     data: () => ({
       items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
+        { title: 'Settings', url: '/#/FBDetails', icon: 'mdi-settings' },
       ],
     }),
   }

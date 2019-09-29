@@ -4,7 +4,7 @@
             :params="fbSignInParams"
             @success="onSignInSuccess"
             @error="onSignInError">
-        Sign in with Facebook
+        Connect to Facebook
     </fb-signin-button>
 </div>
 </template>
@@ -12,12 +12,11 @@
 <script>
     import FBSignInButton from 'vue-facebook-signin-button'
 
-
     export default {
         data () {
             return {
                 fbSignInParams: {
-                    scope: 'email,user_likes, pages_show_list',
+                    scope: 'email,user_likes, pages_show_list, manage_pages, ads_management, ads_read, business_management ',
                     return_scopes: true
                 }
             }
@@ -25,19 +24,7 @@
         comments:{FBSignInButton},
         methods: {
             onSignInSuccess (response) {
-                console.log(response);
-                FB.api('/me', dude => {
-                    console.log(`Good to see you, ${dude.name}.`)
-                });
-                // have to test this first
-                // FB.api(
-                //     "/{user-id}/accounts",
-                //     function (response) {
-                //         if (response && !response.error) {
-                //             /* handle the result */
-                //         }
-                //     }
-                // );
+                this.$store.commit('setFacebookAuth', response.authResponse)
             },
             onSignInError (error) {
                 console.log('OH NOES', error)
@@ -50,9 +37,9 @@
     .fb-signin-button {
         /* This is where you control how the button looks. Be creative! */
         display: inline-block;
-        padding: 4px 8px;
-        border-radius: 3px;
-        background-color: #4267b2;
+        padding: 8px 8px;
+        border-radius: 5px;
+        background-color: #2E4686;
         color: #fff;
     }
 </style>

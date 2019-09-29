@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 import vuetify from './plugins/vuetify';
 Vue.config.productionTip = false
 
@@ -8,12 +8,14 @@ import './sass/main.scss'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
+require('./bootstrap');
+
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '893773914319312',
     cookie     : true,  // enable cookies to allow the server to access the session
     xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.8' // use graph api version 2.8
+    version    : 'v3.3' // use graph api version 3.3
   });
 };
 (function(d, s, id) {
@@ -25,8 +27,7 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 import FBSignInButton from 'vue-facebook-signin-button'
-Vue.use(FBSignInButton)
-
+Vue.use(FBSignInButton);
 
 //Dont remove this code in comment
 // https://vuejsexamples.com/date-range-picker-for-vuetify-js/
@@ -40,6 +41,7 @@ import ClientList from './components/dashboard/ClientList';
 import UserList from './components/dashboard/UserList';
 import MyAgency from './components/dashboard/MyAgency';
 import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
+import { store } from './store/store.js';
 const routes = [
   { path: '/client/list',  component: ClientList } ,
   { path: '/LoginFB',  component: LoginFB } ,
@@ -56,8 +58,9 @@ const router = new VueRouter({
 
 
 new Vue({
+  store,
   vuetify,
   router,
-    FBSignInButton,
+  FBSignInButton,
   render: h => h(App)
 }).$mount('#app')

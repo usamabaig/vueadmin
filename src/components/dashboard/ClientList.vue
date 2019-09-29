@@ -7,7 +7,7 @@
               <div class="pa-2">
                   <div class="title my-2">My Client List</div>
               </div>
-              <div class="pa-2" style="margin-right: 215px;"><v-btn color="primary"  @click.stop="addNewDashboard = true">Add New Dashboard</v-btn></div>
+              <div class="pa-2" style="margin-right: 215px;"><v-btn color="#2E4686"  @click.stop="addNewAdAccount">Add New Dashboard</v-btn></div>
 
 
           </div>
@@ -33,48 +33,7 @@
               </div>
           </div>
           <v-row>
-              <v-col class="myBtn clientListButtonPosition" cols="12" sm="6">
-                  <v-btn
-                          class="first_btn"
-
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-cog " aria-hidden="true"></i>
-                  </v-btn>
-                  <v-btn
-                          class="second_btn"
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  </v-btn>
-                  <v-text-field
-                          label="Cost Per Lead"
-                          outlined
-                          clearablea
-                          prepend-outer-icon="place"
-                  ></v-text-field>
-              </v-col>
-              <v-col class="myBtn clientListButtonPosition" cols="12" sm="6">
-                  <v-btn
-                          class="first_btn"
-
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-cog " aria-hidden="true"></i>
-                  </v-btn>
-                  <v-btn
-                          class="second_btn"
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  </v-btn>
-                  <v-text-field
-                          label="Offer Price"
-                          outlined
-                          clearabled
-                  ></v-text-field>
-              </v-col>
-              <v-col class="myBtn clientListButtonPosition" cols="12" sm="6">
+              <v-col v-for="account in show_ad_account" :key="account.ad_account_id" class="myBtn clientListButtonPosition" cols="12" sm="6">
                   <v-btn
                           class="first_btn"
                           @click.stop="dialog = true"
@@ -83,33 +42,15 @@
                   </v-btn>
                   <v-btn
                           class="second_btn"
-                          @click.stop="dialog = true"
+                          @click="navigateToAgencyPage(account.ad_account_id)"
                   >
                       <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   </v-btn>
                   <v-text-field
-                          label="Traffic Cost"
+                          :label="account.ad_account_name"
                           outlined
                           clearable
-                  ></v-text-field>
-              </v-col>
-              <v-col class="myBtn clientListButtonPosition" cols="12" sm="6">
-                  <v-btn
-                          class="first_btn"
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-cog " aria-hidden="true"></i>
-                  </v-btn>
-                  <v-btn
-                          class="second_btn"
-                          @click.stop="dialog = true"
-                  >
-                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  </v-btn>
-                  <v-text-field
-                          label="Traffc Cost To Auto Generate"
-                          outlined
-                          clearable
+                          disabled
                   ></v-text-field>
               </v-col>
           </v-row>
@@ -160,22 +101,22 @@
 
       <!--Add New Dashboard-->
       <v-row justify="center">
-          <v-dialog
-                  v-model="addNewDashboard"
-                  max-width="600"
-          >
+          <v-dialog v-model="addNewDashboard" max-width="600">
               <v-card>
-                  <div class=" textCenter modalHeading headline">Add New Dashboard</div>
+                  <div class="textCenter modalHeading headline">Add New Dashboard</div>
                   <div class="container">
-                      <v-text-field
-                              label="Select an ad Account"
-                              outlined
-                              clearable
-                      ></v-text-field>
-
+                      <v-select
+                        :items="select_ad_accounts"
+                        item-text="ad_account_name"
+                        item-value="ad_account_id"
+                        v-model="account_id"
+                        label="Select an Ad Account"
+                        solo
+                      ></v-select>
                       <v-text-field
                               label="Custom Client Name (Leave blank to use Default)"
-                              outlined
+                              solo
+                              v-model="custom_name"
                               clearable
                       ></v-text-field>
                       <div
@@ -188,7 +129,7 @@
                           </div>
                           <div class="pa-2">
                               <v-btn small color="grey" @click="addNewDashboard = false">Close</v-btn> &nbsp;
-                              <v-btn small color="success" @click="addNewDashboard = false">Create Dashboard</v-btn>
+                              <v-btn small color="success" @click="addNewAdAccountPost">Create Dashboard</v-btn>
                           </div>
                       </div>
                   </div>
@@ -202,59 +143,105 @@
 </template>
 
 <script>
-import FBSignInButton from 'vue-facebook-signin-button'
+import FBSignInButton from 'vue-facebook-signin-button';
+import { mapGetters } from 'vuex';
+import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+
+const AdAccountRepository = RepositoryFactory.get('adAccount');
 
   export default {
     name: 'ClientList',
-    data () {
-      return {
-        fbSignInParams: {
-            scope: 'email,user_likes, pages_show_list',
-            return_scopes: true
-        },
-        dialog: false,
-        addNewDashboard: false,
-      }
-    },
     comments:{FBSignInButton},
     mounted() {
-    setTimeout(function() {
-        alert('called');
-        window.FB.api(
-        "/2964155643655014/accounts",
-        function (response) {
-            if (response && !response.error) {
-                console.log(response);
+        this.user_id = this.$store.state.user_id;
+        let fb_user_id = this.$store.state.facebookAuthObject.userID;
+        
+        if(fb_user_id != undefined) {
+            var self = this;
+            getAdAccountIds(function(check, response) {
+                if(check){
+                    var ids = response.data;
+                    var bar = new Promise((resolve, reject) => {
+                        ids.forEach((element, index, array) => {
+                            getAdAccountDetails(element.id,function(check, response) {
+                                self.ad_accounts[index] = response;
+                                if (index === array.length -1) resolve();
+                            });
+                        });
+                    });
+                    bar.then(() => {
+                        AdAccountRepository.saveUserAdAccount(self.ad_accounts);
+                    });
+                }
+            });  
+            function getAdAccountDetails(ad_account_id,callback) {
+                FB.api('/'+ad_account_id+'/?fields=name', function(response) {
+                    if (!response || response.error) {
+                        callback(false, response);
+                    } else {
+                        callback(true, response);
+                    }
+                });
+            }
+            function getAdAccountIds(callback) {
+                FB.api('/'+fb_user_id+'/adaccounts', function(response) {
+                    if (!response || response.error) {
+                        callback(false);
+                    } else {
+                        callback(true, response);
+                    }
+                });
             }
         }
-    );
-    }, 3000)
+
+        AdAccountRepository.getUserAdAccounts({'user_id': this.user_id, 'is_show': 1})
+            .then((response) => {
+                this.show_ad_account = response.data;
+            });
+    },
+    data () {
+      return {
+        dialog: false,
+        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+        addNewDashboard: false,
+        select_ad_accounts: [],
+        ad_accounts: [],
+        user_id: null,
+        account_id: null,
+        custom_name: null,
+        show_ad_account: []
+      }
     },
     methods: {
-        onSignInSuccess (response) {
-                console.log(response);
-                var user_id = '';
-                FB.api('/me', dude => {
-                    console.log(dude);
-                    user_id = dude.id;
-                    console.log(`Good to see you, ${dude.name}.`)
-                })
-                console.log(user_id);
-            },
-        onSignInError (error) {
-            console.log('OH NOES', error)
+        addNewAdAccount() {
+            this.addNewDashboard = true;
+            AdAccountRepository.getUserAdAccounts({'user_id': this.user_id, 'is_show': 0})
+            .then((response) => {
+                this.select_ad_accounts = response.data;
+            });
+        },
+        addNewAdAccountPost() {
+            AdAccountRepository.updateUserAdAccount({'ad_account_id': this.account_id, 'custom_name': this.custom_name, 'user_id': this.user_id})
+            .then((response) => {
+                this.show_ad_account = response.data;
+                this.addNewDashboard = false;
+            });
+        },
+        navigateToAgencyPage(ad_account_id) {
+            console.log(ad_account_id);
+            // window.location.href = '/#/my/agency';
         }
     }
   }
 </script>
 
-<style>
+<style scoped>
 .modalHeading {
     background: #2E4686;
     color: white;
     padding: 15px 0px;
     font-weight: bold !important;
-    font-size: 12px !important;
+    font-size: 15px !important;
 }
 .textCenter{
     text-align:center;

@@ -83,13 +83,6 @@
 
           </div>
 
-
-
-
-
-
-
-
           <v-card class="container--fluid">
 
 
@@ -134,10 +127,6 @@
               ></v-data-table>
           </v-card>
           </div>
-
-
-
-
 
 
 <!-- Modal -->
@@ -438,7 +427,7 @@
                   endDate: 'YYYY-MM-DD',
                   format: 'YYYY-MM-DD',
               },
-              items: 6,
+              items: 5,
               search: '',
               headers: [
                   {
@@ -500,7 +489,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .v-data-table-header{
         background: #8e8e8e;;
     }
@@ -510,7 +499,7 @@
     }
 
 .modalHeading {
-    background: blue;
+    background: #2E4686;
     color: white;
     padding: 15px 0px;
     font-weight: bold !important;

@@ -5,18 +5,17 @@
                   class="d-flex justify-space-between mb-6"
                   color="dgrey lighten-2"
                   flat
-                  tile
-          >
-              <div class="pa-2">
+                  tile>
+              <div class="pa-2" style="margin-left: 165px;">
                   <v-btn color="grey"  @click.stop="adduser = true">Back To Dashboard</v-btn>
               </div>
-              <div class="pa-2">
-                  <v-btn color="primary">Connect To Facebook</v-btn>
+              <div class="pa-2" style="margin-right: 165px;">
+                  <login-f-b></login-f-b>
               </div>
           </div>
       </div>
 
-      <v-card class="container">
+      <v-card max-width="900" class="container">
 
           <div >
               <div>
@@ -29,19 +28,19 @@
                   >
                       <v-tabs-slider></v-tabs-slider>
 
-                      <v-tab href="#tab-1" color="basil">
+                      <v-tab href="#tab-1" color="#2E4686">
                           Account
                       </v-tab>
 
-                      <v-tab href="#tab-2" color="red">
+                      <v-tab href="#tab-2" color="#2E4686" disabled>
                           User
                       </v-tab>
 
-                      <v-tab href="#tab-3" color="red">
+                      <v-tab href="#tab-3" color="#2E4686" disabled>
                           Subscriptions
                       </v-tab>
 
-                      <v-tab href="#tab-4" color="red">
+                      <v-tab href="#tab-4" color="#2E4686" disabled>
                           Payment Method
                       </v-tab>
                   </v-tabs>
@@ -51,16 +50,13 @@
                       <v-tab-item
                               :value="'tab-1'"
                       >
-                          <div>
-                              <v-text-field
-                                      v-model="message"
+                          <div>                            
+                              <v-container class=" lightenw-5">
+                                  <v-text-field
                                       label="Account Name"
                                       outlined
                                       clearable
-                              ></v-text-field>
-
-
-                              <v-container class=" lightenw-5">
+                                  ></v-text-field>
                                   <v-row no-gutters>
                                       <template >
                                           <v-col class="pa-2">
@@ -85,7 +81,7 @@
                               <div
                                       :class="`d-flex justify-space-between mb-6`">
                                   <div class="pa-2">
-                                      <v-btn small color="primary" @click="dialog = false">Save Settings</v-btn>
+                                      <v-btn small color="#16AF91" @click="dialog = false">Save Settings</v-btn>
                                   </div>
                                   <div class="pa-2">
                                   </div>
@@ -101,28 +97,24 @@
                       >
                           <div>
                               <v-text-field
-                                      v-model="message"
                                       label="Account Name"
                                       outlined
                                       clearable
                               ></v-text-field>
 
                               <v-text-field
-                                      v-model="message"
                                       label="Your Email"
                                       outlined
                                       clearable
                               ></v-text-field>
 
                               <v-text-field
-                                      v-model="message"
                                       label="Current Password"
                                       outlined
                                       clearable
                               ></v-text-field>
 
                               <v-text-field
-                                      v-model="message"
                                       label="New Password"
                                       outlined
                                       clearable
@@ -154,19 +146,16 @@
                                           <v-col class="pa-2">
 
                                               <v-text-field
-                                                      v-model="message"
                                                       label="Card Number"
                                                       outlined
                                                       clearable
                                               ></v-text-field>
                                               <v-text-field
-                                                      v-model="message"
                                                       label="MM/YY"
                                                       outlined
                                                       clearable
                                               ></v-text-field>
                                               <v-text-field
-                                                      v-model="message"
                                                       label="CVC"
                                                       outlined
                                                       clearable
@@ -205,8 +194,13 @@
 </template>
 
 <script>
+import LoginFB from './LoginFB.vue';
+
   export default {
     name: 'UserList',
+    components: {
+        LoginFB
+    },
     data () {
       return {
         dialog: false,
@@ -218,9 +212,9 @@
   }
 </script>
 
-<style>
+<style scoped>
 .modalHeading {
-    background: blue;
+    background: #2E4686;
     color: white;
     padding: 15px 0px;
     font-weight: bold !important;

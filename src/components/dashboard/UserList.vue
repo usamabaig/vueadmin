@@ -219,9 +219,9 @@
   }
 </script>
 
-<style>
+<style scoped>
 .modalHeading {
-    background: blue;
+    background: #2E4686;
     color: white;
     padding: 15px 0px;
     font-weight: bold !important;
