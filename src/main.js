@@ -58,7 +58,8 @@ const router = new VueRouter({
 });
 
 const guard = function(to, from, next) {
-    if(this.$store.state.fb_token === '123'){
+
+    if(this.$store.state.fb_token == 123){
         next();
     }
     else{
