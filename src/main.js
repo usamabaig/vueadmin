@@ -37,6 +37,7 @@ Vue.use(VuetifyDaterangePicker);*/
 
 import FBDetails from './components/dashboard/FBDetails';
 import LoginFB from './components/dashboard/LoginFB';
+import Login from './components/login/Login';
 import ClientList from './components/dashboard/ClientList';
 import UserList from './components/dashboard/UserList';
 import MyAgency from './components/dashboard/MyAgency';
@@ -48,7 +49,8 @@ const routes = [
   { path: '/FBDetails',  component: FBDetails } ,
   { path: '/performance/estimator', component: PerformanceEstimator } ,
   { path: '/user/list', component: UserList ,  beforeEnter: (to, from, next) => { guard(to, from, next);} } ,
-  { path: '/my/agency', component: MyAgency }
+  { path: '/my/agency', component: MyAgency },
+  { path: '/login', component: Login }
 ];
 
 const router = new VueRouter({
@@ -56,8 +58,7 @@ const router = new VueRouter({
 });
 
 const guard = function(to, from, next) {
-
-    if(this.$store.state.fb_token == 123){
+    if(this.$store.state.fb_token === '123'){
         next();
     }
     else{
