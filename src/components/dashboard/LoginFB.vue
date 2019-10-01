@@ -6,6 +6,8 @@
             @error="onSignInError">
         Connect to Facebook
     </fb-signin-button>
+
+    {{this.$store.state.fb_token}}
 </div>
 </template>
 

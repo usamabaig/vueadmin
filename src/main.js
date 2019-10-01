@@ -43,11 +43,11 @@ import MyAgency from './components/dashboard/MyAgency';
 import PerformanceEstimator from './components/dashboard/PerformanceEstimator';
 import { store } from './store/store.js';
 const routes = [
-  { path: '/client/list',  component: ClientList } ,
+  { path: '/client/list',  component: ClientList ,  beforeEnter: (to, from, next) => { guard(to, from, next);} } ,
   { path: '/LoginFB',  component: LoginFB } ,
   { path: '/FBDetails',  component: FBDetails } ,
   { path: '/performance/estimator', component: PerformanceEstimator } ,
-  { path: '/user/list', component: UserList } ,
+  { path: '/user/list', component: UserList ,  beforeEnter: (to, from, next) => { guard(to, from, next);} } ,
   { path: '/my/agency', component: MyAgency }
 ];
 
@@ -55,7 +55,15 @@ const router = new VueRouter({
   routes // short for `routes: routes`
 });
 
+const guard = function(to, from, next) {
 
+    if(this.$store.state.fb_token == 123){
+        next();
+    }
+    else{
+        window.location.href = "/login";
+    }
+};
 
 new Vue({
   store,
