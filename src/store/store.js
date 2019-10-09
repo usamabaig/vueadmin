@@ -5,8 +5,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
       facebookAuthObject: [],
-      user_id: '3',
+      user_id: null,
       user_token: null,
+      user_object: null,
     },
     getters: {
         facebookAuthObject: state => state.facebookAuthObject,

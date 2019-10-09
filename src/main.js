@@ -59,11 +59,11 @@ const router = new VueRouter({
 
 const guard = function(to, from, next) {
 
-    if(this.$store.state.fb_token == 123){
+    if(store.state.user_token != null){
         next();
     }
     else{
-        window.location.href = "/login";
+        window.location.href = "/#/login";
     }
 };
 
