@@ -11,13 +11,20 @@
                   <div class="title my-2">3D Client Acquisition Matrix</div>
               </div>
               <div class="pa-2">
-                  <v-btn color="primary" small  @click.stop="adduser = true"><i class="fa fa-refresh" aria-hidden="true"></i>Refresh Now</v-btn>
+                  <v-btn color="#2E4686" small  @click.stop="adduser = true"><i class="fa fa-refresh" aria-hidden="true"></i>Refresh Now</v-btn>
                     &nbsp;
                   <v-btn
                           class="myAgencyBtn"
                           @click.stop="dashboardSettings = true"
                   >
                       <i class="fa fa-cog " aria-hidden="true"></i>
+                  </v-btn>
+                  &nbsp;
+                  <v-btn
+                          class="myAgencyBtn"
+                          @click.stop="dashboardSettings = true"
+                  >
+                      <i class="fa fa-plus " aria-hidden="true"></i>
                   </v-btn>
                   &nbsp;
                   <v-btn
@@ -119,7 +126,6 @@
               <v-data-table
                       :headers="headers"
                       :items="performance_estimator"
-                      :search="search"
                       :sort-by="['calories', 'fat']"
                       :sort-desc="[false, true]"
                       multi-sort
@@ -190,37 +196,35 @@
                                   <div>
                                       <v-text-field
                                               v-model="message"
-                                              label="Dashboard Title"
+                                              label="Facebook Ad Account"
                                               outlined
                                               clearable
                                       ></v-text-field>
                                       <v-text-field
                                               v-model="message"
-                                              label="Dashboard Title"
+                                              label="Facebook Campaign Filter"
                                               outlined
                                               clearable
                                       ></v-text-field>
                                       <v-text-field
                                               v-model="message"
-                                              label="Dashboard Title"
+                                              label="Facebook Adset Filter"
                                               outlined
                                               clearable
                                       ></v-text-field>
                                       <v-text-field
                                               v-model="message"
-                                              label="Dashboard Title"
+                                              label="Facebook Ad Filter"
                                               outlined
                                               clearable
                                       ></v-text-field>
 
-                                      <div
-                                              class="d-flex justify-space-around mb-6"
-                                      >
+                                      <div class="d-flex justify-space-around mb-6">
                                           <div>Facebook Attribution Window
                                               <v-row>
                                                   <div class="pa-2 myCheckBoxStyle">
                                                       <label>View</label>
-                                                      <v-container class="px-0" fluid>
+                                                      <v-container fluid>
                                                           <v-checkbox
                                                                   v-model="checkbox"
                                                                   label="1 Day"
@@ -234,12 +238,11 @@
                                                                   label="28 Days"
                                                           ></v-checkbox>
                                                       </v-container>
-
                                                   </div>
 
                                                   <div class="pa-2 myCheckBoxStyle">
                                                       <label>Click</label>
-                                                      <v-container class="px-0" fluid>
+                                                      <v-container fluid>
                                                           <v-checkbox
                                                                   v-model="checkbox"
                                                                   label="1 Day"
@@ -268,6 +271,7 @@
                                                       width="300"
                                                       class="mx-auto indigo lighten-4"
                                                       color="grrey"
+                                                      style="padding: 15px;"
                                               >
                                                   <v-card-text>Use Default Ad Account Attribution</v-card-text>
 
@@ -289,11 +293,11 @@
                                           <div class="pa-2">
                                           </div>
                                           <div class="pa-2">
-                                              <v-btn small color="primary" @click="dialog = false">Apply Filters to All
+                                              <v-btn small color="#506AEE" @click="dialog = false">Apply Filters to All
                                                   cards
-                                              </v-btn>&nbsp;&nbsp;
-                                              <v-btn small color="grey" @click="dialog = false">Close</v-btn>&nbsp;&nbsp;
-                                              <v-btn small color="primary" @click="dialog = false">Save & Close</v-btn>
+                                              </v-btn>&nbsp;
+                                              <v-btn small color="grey" @click="dialog = false">Close</v-btn>&nbsp;
+                                              <v-btn small color="#16AF91" @click="dialog = false">Save & Close</v-btn>
 
                                               <!-- <div class="can-toggle demo-rebrand-1">
                                                    <input id="d" type="checkbox">
@@ -405,17 +409,19 @@
 </template>
 
 <script>
-
-
-
-
-
-
   export default {
       name: 'MyAgency',
+      mounted() {
+        this.ad_account_id = this.$store.getters.getAdAccountId;
+        console.log(this.ad_account_id);
+      },
       data() {
           return {
+              ad_account_id: null,
               dashboardSettings: false,
+              message: null,
+              checkbox: null,
+              switch1: null,
               shareDashboard: false,
               adduser: false,
               tab: null,
@@ -430,16 +436,21 @@
               items: 5,
               search: '',
               headers: [
-                  {
-                      text: 'Conversation Rate',
-                      align: 'left',
-                      sortable: false,
-                      value: 'conversational_rate',
-                  },
-                  {text: 'Units', value: 'unit'},
-                  {text: 'Sales', value: 'sales'},
-                  {text: 'Gross Profit', value: 'gross_profit'},
-                  {text: 'CPA', value: 'cpa'},
+                  {text: 'Ad Spend', value: 'ad_spend'},
+                  {text: 'CPM', value: 'cpm'},
+                  {text: 'Leads', value: 'leads'},
+                  {text: 'CPL', value: 'cpl'},
+                  {text: 'CTR', value: 'ctr'},
+                  {text: 'Links Click', value: 'links_click'},
+                  {text: 'LCTR', value: 'lctr'},
+
+                  {text: 'CPLC', value: 'cplc'},
+                  {text: 'LPCV', value: 'lpcv'},
+                  {text: 'Add 2 Cart', value: 'add_to_cart'},
+                  {text: 'Apps', value: 'apps'},
+                  {text: 'Cost / App', value: 'cost_app'},
+                  {text: 'L2AC %', value: 'l2ac'},
+                  {text: 'APCV %', value: 'apcv'},
               ],
               performance_estimator: [
                   {

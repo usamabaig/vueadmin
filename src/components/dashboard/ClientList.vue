@@ -228,8 +228,8 @@ const AdAccountRepository = RepositoryFactory.get('adAccount');
             });
         },
         navigateToAgencyPage(ad_account_id) {
-            console.log(ad_account_id);
-            // window.location.href = '/#/my/agency';
+            this.$store.commit('setadAccountId', ad_account_id);
+            window.location.href = '/#/my/agency';
         }
     }
   }

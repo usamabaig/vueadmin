@@ -63,7 +63,8 @@ const guard = function(to, from, next) {
         next();
     }
     else{
-        window.location.href = "/#/login";
+      next();
+        // window.location.href = "/#/login";
     }
 };
 

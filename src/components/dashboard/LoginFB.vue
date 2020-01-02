@@ -18,7 +18,7 @@
         data () {
             return {
                 fbSignInParams: {
-                    scope: 'email,user_likes, pages_show_list, manage_pages, ads_management, ads_read, business_management ',
+                    scope: 'email,user_likes, pages_show_list, manage_pages, ads_management, ads_read, business_management, read_insights',
                     return_scopes: true
                 }
             }
@@ -26,6 +26,7 @@
         comments:{FBSignInButton},
         methods: {
             onSignInSuccess (response) {
+                console.log(response.authResponse)
                 this.$store.commit('setFacebookAuth', response.authResponse)
             },
             onSignInError (error) {
